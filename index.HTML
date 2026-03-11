@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Hafssaa 🎉</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff7eb3,#ff758c,#ffb199);
+    color:white;
+    text-align:center;
+    overflow:hidden;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    padding:20px;
+    top:50vh;
+    transform:translateY(-50%);
+}
+
+h1{
+    font-size:2.5rem;
+}
+
+p{
+    font-size:1.2rem;
+    max-width:500px;
+    margin:auto;
+    line-height:1.6;
+}
+
+.heart{
+    font-size:2rem;
+    animation:beat 1s infinite;
+}
+
+@keyframes beat{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:1;
+}
+
+/* mobile optimization */
+@media(max-width:600px){
+    h1{font-size:2rem;}
+    p{font-size:1rem;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="container">
+<h1>Happy Birthday Hafssaa 🎂</h1>
+
+<p>
+To the most beautiful girl in my life ❤️  
+Today is special because it’s the day you were born.  
+Thank you for the amazing **2 years** we spent together.  
+You make my life happier every single day.  
+
+I wish you love, happiness, and all your dreams come true.  
+Happy Birthday my love Hafssaa 💖
+</p>
+
+<div class="heart">❤️</div>
+</div>
+
+<script>
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const confetti = [];
+
+for(let i=0;i<150;i++){
+    confetti.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*6+2,
+        d: Math.random()*150,
+        color:`hsl(${Math.random()*360},100%,50%)`,
+        tilt:Math.random()*10-10
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    confetti.forEach((c,i)=>{
+        ctx.beginPath();
+        ctx.fillStyle=c.color;
+        ctx.fillRect(c.x,c.y,c.r,c.r);
+    });
+
+    update();
+}
+
+let angle=0;
+
+function update(){
+    angle+=0.01;
+
+    confetti.forEach((c,i)=>{
+        c.y += Math.cos(angle+c.d)+1+c.r/2;
+        c.x += Math.sin(angle);
+
+        if(c.y>canvas.height){
+            confetti[i]={
+                x:Math.random()*canvas.width,
+                y:-10,
+                r:c.r,
+                d:c.d,
+                color:c.color
+            };
+        }
+    });
+}
+
+setInterval(draw,20);
+
+window.addEventListener("resize",()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
